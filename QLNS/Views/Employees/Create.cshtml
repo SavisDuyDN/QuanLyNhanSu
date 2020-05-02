@@ -4,8 +4,6 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link href="~/Content/boostrap4/css/bootstrap.min.css" rel="stylesheet" />
-
 <h4>Thêm mới nhân viên</h4>
 @using (Html.BeginForm("Create", "Employees", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
@@ -25,6 +23,7 @@
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <div class="form-horizontal">
+                <h4>Employee</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
@@ -151,8 +150,9 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
-                        <button id="btnUpload" onclick="ChooseFile()">CLick me</button>
+                        @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control d-none" } })
+                        <img src="#" alt="Alternate Text" class="show-image w-25 d-none" />
+                        <button id="btnUpload" type="button" class="btn btn-outline-primary"><i class="fa fa-upload" aria-hidden="true"></i> Upload</button>
                         @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -337,23 +337,19 @@
     @Html.ActionLink("Trở lại", "Index", null, new { @class = "btn btn-success" })
 </div>
 <script>
-    function ChooseFile() {
-        CKFinder.popup({
-            chooseFiles: true,
-            width: 800,
-            height: 600,
-            onInit: function (finder) {
-                finder.on('files:choose', function (evt) {
-                    var file = evt.data.files.first();
-                    var output = document.getElementById("btnUpload");
-                    output.value = file.getUrl();
-                });
+    $(function () {
+        $('#btnUpload').click(function () {
+            CKFinder.popup({
+                chooseFiles: true,
+                width: 800,
+                height: 600,
+                selectActionFunction: function (fileUrl, data) {
+                    $('#Image').val(fileUrl);
+                    $(".show-image").removeClass("d-none")
+                    $(".show-image").attr("src", fileUrl);
+                }
+            });
+        })
+    })
 
-                finder.on('file:choose:resizedImage', function (evt) {
-                    var output = document.getElementById("btnUpload");
-                    output.value = evt.data.resizedUrl;
-                });
-            }
-        });
-    }
 </script>
