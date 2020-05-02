@@ -1,0 +1,88 @@
+﻿@model PagedList.IPagedList<QLNS.Models.Organization>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12">
+    <div class="row">
+        <p class="col-md-6">
+            @Html.ActionLink("Thêm", "Create", null, new { @class = "btn btn-primary" })
+        </p>
+        <div class="col-md-6">
+            <form action="/Organizations/Index" method="get" class="d-flex float-right">
+                <input type="text" name="TextSearch" value="@ViewBag.TextSearch" class="form-control w-75" />
+                <input type="submit" class="btn btn-info" value="Tìm Kiếm" />
+            </form>
+        </div>
+    </div>
+</div>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.Label("OrganizationCode")
+        </th>
+        <th>
+            @Html.Label("OrganizationName")
+        </th>
+        <th>
+            @Html.Label("EffectiveStartDate")
+        </th>
+        <th>
+            @Html.Label("EffectiveEndDate")
+        </th>
+        <th>
+            @Html.Label("Address")
+        </th>
+        <th>
+            @Html.Label("IsActive")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrganizationCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrganizationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EffectiveStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EffectiveEndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @{ var status = ((List<QLNS.Common.Status>)ViewBag.status).FirstOrDefault(n => n.StatusId == item.IsActive); }
+                @Html.DisplayFor(modelItem => status.StatusName)
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "Edit", new { id = item.OrganizationId }) |
+                @Html.ActionLink("Xem", "Details", new { id = item.OrganizationId }) |
+                @Html.ActionLink("Xóa", "Delete", new { id = item.OrganizationId })
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager(Model,
+PageIndex => Url.Action("Index", "Organizations", new { PageIndex }),
+    new PagedListRenderOptions
+    {
+        LiElementClasses = new string[] { "page-item" },
+        UlElementClasses = new List<string> { "pagination", "pagination sm" },
+        ContainerDivClasses = new List<string> { "nav text-xs-center" },
+        FunctionToTransformEachPageLink = (liTag, aTag) => { aTag.Attributes.Add("class", "page-link"); liTag.InnerHtml = aTag.ToString(); return liTag; },
+        LinkToPreviousPageFormat = "Previous",
+        LinkToNextPageFormat = "Next",
+        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+        DisplayLinkToNextPage = PagedListDisplayMode.Always
+    }
+)

@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLyNhanSuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AcademicLevel">
+    <Key>
+      <PropertyRef Name="AcademicLevelId" />
+    </Key>
+    <Property Name="AcademicLevelId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AcademicLevelCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Employees" Relationship="QuanLyNhanSuModel.FK_Employees_AcademicLevels" FromRole="AcademicLevel" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Contract">
+    <Key>
+      <PropertyRef Name="ContractId" />
+    </Key>
+    <Property Name="ContractId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="EmployeeId" Type="Int64" />
+    <Property Name="DecisionNumber" Type="Int32" />
+    <Property Name="EffectiveStartDate" Type="DateTime" Precision="3" />
+    <Property Name="EffectiveEndDate" Type="DateTime" Precision="3" />
+    <Property Name="ContractType" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeId" />
+    </Key>
+    <Property Name="EmployeeId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Full_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DateOfBirth" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="Int16" />
+    <Property Name="PermanentAddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="CurrentAddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="PlaceOfBirth" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Province" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="EducationGrade" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Adress" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="TypeOfEducation" Type="Int16" />
+    <Property Name="IdentityCardNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="DateIssue" Type="DateTime" Precision="3" />
+    <Property Name="PlaceIssued" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Language" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="OrganizationId" Type="Int64" />
+    <Property Name="NationId" Type="Int64" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="FamilyRelationshipId" Type="Int64" />
+    <Property Name="PositionId" Type="Int64" />
+    <Property Name="AcademicLevelId" Type="Int64" />
+    <Property Name="Religion" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AcademicLevel" Relationship="QuanLyNhanSuModel.FK_Employees_AcademicLevels" FromRole="Employee" ToRole="AcademicLevel" />
+    <NavigationProperty Name="FamilyRelationShip" Relationship="QuanLyNhanSuModel.FK_Employees_FamilyRelationShips" FromRole="Employee" ToRole="FamilyRelationShip" />
+    <NavigationProperty Name="Nation" Relationship="QuanLyNhanSuModel.FK_Employees_Nations" FromRole="Employee" ToRole="Nation" />
+    <NavigationProperty Name="Position" Relationship="QuanLyNhanSuModel.FK_Employees_Positions" FromRole="Employee" ToRole="Position" />
+  </EntityType>
+  <EntityType Name="FamilyRelationShip">
+    <Key>
+      <PropertyRef Name="FamilyRelationshipId" />
+    </Key>
+    <Property Name="FamilyRelationshipId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FamilyRelationshipName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="FamilyRelationshipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+    <Property Name="Gender" Type="Int32" />
+    <Property Name="PermanentAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CurrentAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Job" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="IdentityCardNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="EmployeeId" Type="Int64" />
+    <Property Name="RelativeTypeId" Type="Int64" />
+    <NavigationProperty Name="Employees" Relationship="QuanLyNhanSuModel.FK_Employees_FamilyRelationShips" FromRole="FamilyRelationShip" ToRole="Employee" />
+    <NavigationProperty Name="RelativeType" Relationship="QuanLyNhanSuModel.FK_FamilyRelationShips_RelativeTypes" FromRole="FamilyRelationShip" ToRole="RelativeType" />
+  </EntityType>
+  <EntityType Name="Insurrance">
+    <Key>
+      <PropertyRef Name="InsurranceId" />
+    </Key>
+    <Property Name="InsurranceId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeId" Type="Int64" />
+    <Property Name="SocialInsuranceNumber" Type="Int32" />
+    <Property Name="SocialInsuranceProvidedDate" Type="DateTime" Precision="3" />
+    <Property Name="SocialInsuranceProvidedAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="HealthInsuranceNumber" Type="Int32" />
+    <Property Name="HealthInsuranceProvidedDate" Type="DateTime" Precision="3" />
+    <Property Name="HealthInsuranceProvidedAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Nation">
+    <Key>
+      <PropertyRef Name="NationId" />
+    </Key>
+    <Property Name="NationId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Employees" Relationship="QuanLyNhanSuModel.FK_Employees_Nations" FromRole="Nation" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Organization">
+    <Key>
+      <PropertyRef Name="OrganizationId" />
+    </Key>
+    <Property Name="OrganizationId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrganizationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OrganizationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EffectiveStartDate" Type="DateTime" Precision="3" />
+    <Property Name="EffectiveEndDate" Type="DateTime" Precision="3" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Int32" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Position">
+    <Key>
+      <PropertyRef Name="PositionId" />
+    </Key>
+    <Property Name="PositionId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PositionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PositionName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Int32" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Employees" Relationship="QuanLyNhanSuModel.FK_Employees_Positions" FromRole="Position" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="RelativeType">
+    <Key>
+      <PropertyRef Name="RelativeTypeId" />
+    </Key>
+    <Property Name="RelativeTypeId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="FamilyRelationShips" Relationship="QuanLyNhanSuModel.FK_FamilyRelationShips_RelativeTypes" FromRole="RelativeType" ToRole="FamilyRelationShip" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Role" Type="Int32" />
+  </EntityType>
+  <EntityType Name="PayRoll">
+    <Key>
+      <PropertyRef Name="PayrollId" />
+    </Key>
+    <Property Name="PayrollId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SalaryLevel" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="SalaryBasic" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Coefficient" Type="Int32" />
+    <Property Name="Allowance" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="EmployeeId" Type="Int64" />
+    <Property Name="BankAccountNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="BankName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProvidedDate" Type="DateTime" Precision="3" />
+    <Property Name="ProvidedAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="QuanLyNhanSuEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AcademicLevels" EntityType="Self.AcademicLevel" />
+    <EntitySet Name="Contracts" EntityType="Self.Contract" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="FamilyRelationShips" EntityType="Self.FamilyRelationShip" />
+    <EntitySet Name="Insurrances" EntityType="Self.Insurrance" />
+    <EntitySet Name="Nations" EntityType="Self.Nation" />
+    <EntitySet Name="Organizations" EntityType="Self.Organization" />
+    <EntitySet Name="Positions" EntityType="Self.Position" />
+    <EntitySet Name="RelativeTypes" EntityType="Self.RelativeType" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="PayRolls" EntityType="Self.PayRoll" />
+    <AssociationSet Name="FK_Employees_AcademicLevels" Association="QuanLyNhanSuModel.FK_Employees_AcademicLevels">
+      <End Role="AcademicLevel" EntitySet="AcademicLevels" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employees_FamilyRelationShips" Association="QuanLyNhanSuModel.FK_Employees_FamilyRelationShips">
+      <End Role="FamilyRelationShip" EntitySet="FamilyRelationShips" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employees_Nations" Association="QuanLyNhanSuModel.FK_Employees_Nations">
+      <End Role="Nation" EntitySet="Nations" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employees_Positions" Association="QuanLyNhanSuModel.FK_Employees_Positions">
+      <End Role="Position" EntitySet="Positions" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FamilyRelationShips_RelativeTypes" Association="QuanLyNhanSuModel.FK_FamilyRelationShips_RelativeTypes">
+      <End Role="RelativeType" EntitySet="RelativeTypes" />
+      <End Role="FamilyRelationShip" EntitySet="FamilyRelationShips" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_Employees_AcademicLevels">
+    <End Type="QuanLyNhanSuModel.AcademicLevel" Role="AcademicLevel" Multiplicity="0..1" />
+    <End Type="QuanLyNhanSuModel.Employee" Role="Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AcademicLevel">
+        <PropertyRef Name="AcademicLevelId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="AcademicLevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employees_FamilyRelationShips">
+    <End Type="QuanLyNhanSuModel.FamilyRelationShip" Role="FamilyRelationShip" Multiplicity="0..1" />
+    <End Type="QuanLyNhanSuModel.Employee" Role="Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FamilyRelationShip">
+        <PropertyRef Name="FamilyRelationshipId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="FamilyRelationshipId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employees_Nations">
+    <End Type="QuanLyNhanSuModel.Nation" Role="Nation" Multiplicity="0..1" />
+    <End Type="QuanLyNhanSuModel.Employee" Role="Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Nation">
+        <PropertyRef Name="NationId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="NationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employees_Positions">
+    <End Type="QuanLyNhanSuModel.Position" Role="Position" Multiplicity="0..1" />
+    <End Type="QuanLyNhanSuModel.Employee" Role="Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="PositionId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="PositionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FamilyRelationShips_RelativeTypes">
+    <End Type="QuanLyNhanSuModel.RelativeType" Role="RelativeType" Multiplicity="0..1" />
+    <End Type="QuanLyNhanSuModel.FamilyRelationShip" Role="FamilyRelationShip" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RelativeType">
+        <PropertyRef Name="RelativeTypeId" />
+      </Principal>
+      <Dependent Role="FamilyRelationShip">
+        <PropertyRef Name="RelativeTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
